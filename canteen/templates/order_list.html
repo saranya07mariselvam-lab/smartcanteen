@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .order-card {
+            background-color: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px #cccccc;
+        }
+
+        .status {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>📋 Order List</h1>
+        <p>Smart Canteen Orders</p>
+    </div>
+
+    <div class="container">
+
+        {% for order in orders %}
+
+        <div class="order-card">
+
+            <h2>Order #{{ order.id }}</h2>
+
+            <p>Food: {{ order.food.name }}</p>
+
+            <p>Quantity: {{ order.quantity }}</p>
+
+            <p>Total Price: ₹{{ order.total_price }}</p>
+
+            <p class="status">
+                Status: {{ order.status }}
+            </p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No orders found.</p>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

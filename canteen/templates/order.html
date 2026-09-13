@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Order</title>
+</head>
+
+<body>
+
+    <h1>🍱 Place Your Order</h1>
+
+    <h2>{{ food.name }}</h2>
+
+    <p>{{ food.description }}</p>
+
+    <p>Price: ₹{{ food.price }}</p>
+
+    if quantity > food.stock:
+    return render(request, 'order.html', {
+        'food': food,
+        'error': 'Not enough stock available!'
+    })
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <label>Quantity:</label>
+
+        <input type="number" name="quantity" min="1" value="1">
+
+        <br><br>
+
+        <button type="submit">Place Order</button>
+
+    </form>
+
+</body>
+</html>

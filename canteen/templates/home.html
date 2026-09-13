@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Canteen</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #6c5ce7;
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        .header-buttons {
+    margin-top: 15px;
+}
+
+.header-buttons a {
+    text-decoration: none;
+    margin: 0 5px;
+}
+
+.login-btn {
+    background-color: white;
+    color: #6c5ce7;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.register-btn {
+    background-color: #ffcc70;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.logout-btn {
+    background-color: #ff7675;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+        .container {
+            width: 80%;
+            margin: 30px auto;
+        }
+
+        .food-card {
+            background-color: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px #cccccc;
+        }
+
+        .food-card h2 {
+            margin-top: 0;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .order-btn {
+            background-color: #6c5ce7;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .order-btn:hover {
+            background-color: #5849c4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>🍱 Smart Canteen</h1>
+        <p>Fresh Food • Easy Ordering</p>
+        <div class="header-buttons">
+
+    {% if user.is_authenticated %}
+
+        <span>Welcome, {{ user.username }} 👋</span>
+
+        <a href="{% url 'logout' %}" class="logout-btn">
+            Logout
+        </a>
+
+    {% else %}
+
+        <a href="{% url 'login' %}" class="login-btn">
+            Login 🔐
+        </a>
+
+        <a href="{% url 'register' %}" class="register-btn">
+            Register 👤
+        </a>
+
+    {% endif %}
+
+</div>
+    </div>
+
+    <div class="container">
+
+        <h2>🍔 Food Menu</h2>
+        <div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'cart' %}">
+        <button class="order-btn">🛒 View Cart</button>
+    </a>
+</div>
+
+<div style="text-align: right; margin-bottom: 20px;">
+    <a href="{% url 'my_orders' %}">
+        <button class="order-btn">📦 My Orders</button>
+    </a>
+</div>
+
+        {% for food in foods %}
+
+        <div class="food-card">
+
+            <h2>{{ food.name }}</h2>
+
+            <p>{{ food.description }}</p>
+
+            <p class="price">₹{{ food.price }}</p>
+
+            <p>Category: {{ food.category }}</p>
+
+            <p>Available Stock: {{ food.stock }}</p>
+
+            <a href="{% url 'add_to_cart' food.id %}">
+    <button class="order-btn">Add to Cart 🛒</button>
+</a>
+
+        </div>
+
+        {% empty %}
+
+        <p>No food available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</body>
+</html>

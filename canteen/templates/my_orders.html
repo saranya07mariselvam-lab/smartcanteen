@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Orders</title>
+</head>
+<body>
+
+    <h1>📦 My Orders</h1>
+
+    {% for order in orders %}
+        <div>
+            <h3>{{ order.food.name }}</h3>
+            <p>Quantity: {{ order.quantity }}</p>
+            <p>Total: ₹{{ order.total_price }}</p>
+            <p>Status: Pending</p>
+            <hr>
+        </div>
+    {% empty %}
+        <p>No orders found.</p>
+    {% endfor %}
+
+    <a href="/">← Back to Menu</a>
+
+</body>
+</html>
